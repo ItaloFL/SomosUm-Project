@@ -1,7 +1,7 @@
 
 # Indice
 
-- [About](#-about)
+- [About](#-about-the-project)
 - [Tools](#-tools)
 - [Building](#-building)
 
@@ -36,7 +36,7 @@ The Project was developed with the following technologies:
  ```bash
 
   #Clone the repository
-  $ git clone (url)
+  $ git clone https://github.com/ItaloFL/SomosUm-Project
 
   #Enter project folder
   $ cd SomosUM_api-main
