@@ -1,4 +1,4 @@
-import { Repository, getRepository, Like, In} from "typeorm"
+import { Repository, getRepository, Like } from "typeorm"
 
 import { Anuncio } from "../entities/Anuncio"
 import { User } from "@modules/Accounts/infra/typeorm/entities/User"
@@ -42,7 +42,7 @@ class AnunciosRepository implements IAnunciosRepository {
   async updateAd(data: Anuncio): Promise<Anuncio> {
     var newAd = await this.repository.findOne(data.ad_id);
 
-    newAd = {...newAd,...data};
+    newAd = { ...newAd, ...data };
 
     await this.repository.save(newAd);
 
@@ -63,7 +63,7 @@ class AnunciosRepository implements IAnunciosRepository {
         created_at: "DESC"
       }
     })
-    
+
     return list;
   }
 
@@ -94,25 +94,25 @@ class AnunciosRepository implements IAnunciosRepository {
     return data
   }
 
-  async findById(ad_id: string): Promise<Anuncio> { 
+  async findById(ad_id: string): Promise<Anuncio> {
     return await this.repository.findOne(ad_id);
   }
 
-  async search({ad_name, categorieID, user_id}: ISearchParamsDTO): Promise<Anuncio[]>{
+  async search({ ad_name, categorieID, user_id }: ISearchParamsDTO): Promise<Anuncio[]> {
     let param: object;
-    if (categorieID){
-      param = {categorieID: categorieID}
+    if (categorieID) {
+      param = { categorieID: categorieID }
     }
     if (user_id) {
-      param = {...param, user_id: user_id}
+      param = { ...param, user_id: user_id }
     }
 
     var data = await this.repository.find({
-      where:{
+      where: {
         ad_name: Like(`%${ad_name}%`),
         ...param
       },
-      select:[
+      select: [
         "ad_id",
         "ad_name",
         "price",

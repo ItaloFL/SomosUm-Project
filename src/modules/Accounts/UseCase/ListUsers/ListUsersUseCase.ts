@@ -5,22 +5,22 @@ import { IUserRepository } from "../../Repositories/IUserRepository";
 
 
 @injectable()
-class ListUsersUseCase{
+class ListUsersUseCase {
   constructor(
     @inject("UsersRepository")
     private userRepository: IUserRepository
-  ){}
+  ) { }
 
-  async execute(user_id: string): Promise<User[]>{
+  async execute(user_id: string): Promise<User[]> {
     const verify = await this.userRepository.verifyIsAdmin(user_id)
 
-    if(!verify.isAdmin){
-        throw new AppError("Ação não permitida")
+    if (!verify.isAdmin) {
+      throw new AppError("Action not allowed")
     }
 
     const allUsers = await this.userRepository.list()
 
-    return allUsers; 
+    return allUsers;
   }
 }
 

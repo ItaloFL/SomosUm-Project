@@ -5,15 +5,15 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 class DeleteCategoryUseCase {
-  constructor (
-    @inject("CategoriesRepository") 
-    private categoryRepository: ICategoriesRepository) {}
+  constructor(
+    @inject("CategoriesRepository")
+    private categoryRepository: ICategoriesRepository) { }
 
   async execute(categorieID: string): Promise<void> {
     const categoryExist = await this.categoryRepository.findById(categorieID)
 
-    if (!categoryExist){
-      throw new AppError("Categoria não encontrada!")
+    if (!categoryExist) {
+      throw new AppError("Category does not exist", 404)
     }
 
     await this.categoryRepository.delete(categorieID)

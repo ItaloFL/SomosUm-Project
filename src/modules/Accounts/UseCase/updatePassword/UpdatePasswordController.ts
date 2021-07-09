@@ -15,7 +15,7 @@ class UpdatePasswordController{
     await updatePasswordUseCase.execute(newPasswd, newPasswdConfirm, user_id);
     
     return response.sendStatus(200).json({
-      message: "Senha alterada com sucesso"
+      message: "Password changed successfully"
     })
   }
 }

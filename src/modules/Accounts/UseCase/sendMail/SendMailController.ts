@@ -4,9 +4,9 @@ import { AppError } from "@shared/errors/AppError";
 import { SendMailUseCase } from './SendMailUseCase'
 
 
-class SendMailController{
+class SendMailController {
 
-    async handle(request: Request, response: Response): Promise<Response>{
+    async handle(request: Request, response: Response): Promise<Response> {
 
         const { email } = request.body
 
@@ -14,8 +14,8 @@ class SendMailController{
 
         const mailsend = await sendMailUseCase.execute(email)
 
-        if(!mailsend){
-            throw new AppError("Email não enviado")
+        if (!mailsend) {
+            throw new AppError("Email not sent")
         }
 
         return response.status(201).send()

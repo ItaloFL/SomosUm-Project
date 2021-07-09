@@ -6,20 +6,20 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 class ListAdsByCategorieUseCase {
-  constructor ( 
+  constructor(
     @inject("AnunciosRepository")
     private adRepository: IAnunciosRepository,
     @inject("CategoriesRepository")
     private categoriesRepository: ICategoriesRepository
-    ) {}
+  ) { }
 
   async execute(categorieID: string): Promise<Anuncio[]> {
     const categoryExist = await this.categoriesRepository.findById(categorieID)
-    if ( !categoryExist ) {
-      throw new AppError("Categoria não encontrada.")
+    if (!categoryExist) {
+      throw new AppError("Category does not exist", 404)
     }
 
-    const adList = await this.adRepository.listByCategorie(categorieID) 
+    const adList = await this.adRepository.listByCategorie(categorieID)
 
     return adList;
   }

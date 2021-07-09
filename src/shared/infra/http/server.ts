@@ -1,13 +1,16 @@
+import "reflect-metadata"
 import express from "express";
+import createConnection from '../typeorm'
+import cors from 'cors';
 import { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
-import '../typeorm'
-import { router } from './routes'
-import cors from 'cors';
+
+
 import '../../container'
 import { AppError } from "@shared/errors/AppError";
-import 'reflect-metadata'
+import { router } from './routes'
 
+createConnection()
 const server = express();
 server.use(express.json());
 
@@ -23,18 +26,18 @@ server.use((_, res, next) => {
 server.use(router);
 
 server.use((err: Error, request: Request, response: Response, next: NextFunction) => {
-  if(err instanceof AppError){
+  if (err instanceof AppError) {
     return response.status(err.StatusCode).json({
       message: err.message
     })
   }
-
+  
   return response.status(500).json({
     status: "error",
     message: `Internal Error server ${err.message}`
   })
 })
 
-server.listen(3333,() => {
+server.listen(3333, () => {
   console.log("Running on port 3333");
 })

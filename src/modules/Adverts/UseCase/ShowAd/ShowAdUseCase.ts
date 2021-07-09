@@ -5,14 +5,14 @@ import { IAnunciosRepository } from "@modules/Adverts/Repositories/IAnunciosRepo
 import { IShowAdDTO } from "@modules/Adverts/dtos/IShowAdDTO";
 
 @injectable()
-class ShowAdUseCase{
-  constructor (
+class ShowAdUseCase {
+  constructor(
     @inject("AnunciosRepository") private adRepository: IAnunciosRepository,
-    @inject("ViewRepository") private viewRepository: IViewsRepository) {}
+    @inject("ViewRepository") private viewRepository: IViewsRepository) { }
 
   async execute(ad_id: string, user_id: string): Promise<IShowAdDTO> {
     if (!ad_id) {
-      throw new AppError("Id de anúncio faltando!")
+      throw new AppError("Adverts does not exist", 404)
     }
 
     const adInfo = await this.adRepository.showAd(ad_id, user_id)
@@ -23,4 +23,4 @@ class ShowAdUseCase{
   }
 }
 
-export {ShowAdUseCase}
+export { ShowAdUseCase }

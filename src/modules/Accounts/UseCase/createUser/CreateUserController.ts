@@ -3,9 +3,9 @@ import { container } from "tsyringe";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
 
-class CreateUserController{
+class CreateUserController {
 
-    async handle(request: Request, response: Response): Promise<Response>{
+    async handle(request: Request, response: Response): Promise<Response> {
 
         const data = request.body
 
@@ -14,7 +14,7 @@ class CreateUserController{
         await createUserUseCase.execute(data)
 
         return response.status(201).json({
-            message: "Usuario criado com sucesso"
+            message: "User created successfully"
         })
     }
 

@@ -4,29 +4,29 @@ import { IUserRepository } from "../../Repositories/IUserRepository";
 
 
 @injectable()
-class UserPerfilUseCase{
+class UserPerfilUseCase {
 
-    constructor(
-        @inject("UsersRepository")
-        private userRepository: IUserRepository
-    ){}
+  constructor(
+    @inject("UsersRepository")
+    private userRepository: IUserRepository
+  ) { }
 
-    async execute(user_id: string){
+  async execute(user_id: string) {
 
-      const userInfo = await this.userRepository.findbyId(
-        user_id
-      )
+    const userInfo = await this.userRepository.findbyId(
+      user_id
+    )
 
-      if(!userInfo){
-        throw new AppError("Usuario não encontrado")
-      }
-
-      delete userInfo.passwd;
-
-      return userInfo
-      
-
+    if (!userInfo) {
+      throw new AppError("User not found", 404)
     }
+
+    delete userInfo.passwd;
+
+    return userInfo
+
+
+  }
 }
 
 

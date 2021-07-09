@@ -5,19 +5,19 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 class DeleteAdUseCase {
-  constructor (
+  constructor(
     @inject("AnunciosRepository")
-    private adReository: IAnunciosRepository) {}
+    private adReository: IAnunciosRepository) { }
 
-    async execute (ad_id: string): Promise<void>{
-      const ad = await this.adReository.findById(ad_id)
+  async execute(ad_id: string): Promise<void> {
+    const ad = await this.adReository.findById(ad_id)
 
-      if(!ad) {
-        throw new AppError("Anúncio não encontrado.")
-      }
-      await this.adReository.deleteAd(ad_id)
-
+    if (!ad) {
+      throw new AppError("Adverts does not exist", 404)
     }
+    await this.adReository.deleteAd(ad_id)
+
   }
+}
 
 export { DeleteAdUseCase }

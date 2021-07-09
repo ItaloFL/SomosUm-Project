@@ -6,8 +6,8 @@ import { ICreateAdDTO } from "../../dtos/ICreateAdDTO";
 
 
 @injectable()
-class CreateAdUseCase{
-  constructor (@inject("AnunciosRepository") private adRepository: IAnunciosRepository) {}
+class CreateAdUseCase {
+  constructor(@inject("AnunciosRepository") private adRepository: IAnunciosRepository) { }
 
   async execute({
     ad_name, price,
@@ -15,7 +15,7 @@ class CreateAdUseCase{
     description, categorieID
   }: ICreateAdDTO, user_id: string): Promise<Anuncio> {
     if (!ad_name || !description) {
-      throw new AppError("Campo obrigatório não preenchido!")
+      throw new AppError("Missing field!")
     }
 
     const ad = this.adRepository.create({

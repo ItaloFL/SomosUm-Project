@@ -12,6 +12,8 @@ import { IAnunciosRepository } from '@modules/Adverts/Repositories/IAnunciosRepo
 import { CategoriesRepository } from '@modules/Adverts/infra/typeorm/repositories/CategoriesRepository'
 import { ICategoriesRepository } from '@modules/Adverts/Repositories/ICategoriesRepository'
 
+import { SessionsRepository } from '@modules/Accounts/infra/typeorm/repositories/SessionsRepository'
+import { ISessionsRepository } from '@modules/Accounts/Repositories/ISessionRepository'
 
 
 
@@ -33,4 +35,9 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<IViewsRepository>(
     "ViewRepository",
     ViewsRepository
+)
+
+container.registerSingleton<ISessionsRepository>(
+    "SessionsRepository",
+    SessionsRepository
 )

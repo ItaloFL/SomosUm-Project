@@ -1,21 +1,16 @@
-// import { Request } from "express";
+import { Request, Response } from "express";
+import { container } from "tsyringe";
+import { LogoutUseCase } from "./LogoutUseCase";
 
-// class LogoutController{
-//   async handle(request: Request, response: Response){
+class LogoutController {
+  async handle(request: Request, response: Response) {
+    const user_id = request.userId
+    const logoutUseCase = container.resolve(LogoutUseCase);
 
-//     const user_id = request.userId
-//     const sessionsRepository = getCustomRepository(SessionsRepository);
+    await logoutUseCase.execute(user_id)
 
-//     const info = await sessionsRepository.findOne({
-//         where: {logout: null, user_id}
-//     })
+    return response.status(200)
+  }
+}
 
-//     info.logout = new Date()
-//     await sessionsRepository.save( info );
-    
-//       return response.status(200)
-          
-//   }
-// }
-
-// export { LogoutController }
+export { LogoutController }

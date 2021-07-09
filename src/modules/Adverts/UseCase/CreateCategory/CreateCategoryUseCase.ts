@@ -5,14 +5,14 @@ import { Categorie } from "../../infra/typeorm/entities/Categorie";
 import { ICategoriesRepository } from "../../Repositories/ICategoriesRepository";
 
 @injectable()
-class CreateCategoryUseCase{
-  constructor (
+class CreateCategoryUseCase {
+  constructor(
     @inject("CategoriesRepository")
-    private categoriesRepository: ICategoriesRepository) {}
+    private categoriesRepository: ICategoriesRepository) { }
 
   async execute(categorieName: string): Promise<Categorie> {
     if (!categorieName) {
-      throw new AppError("Campo obrigatório não preenchido!")
+      throw new AppError("Category does not exist", 404)
     }
 
     const categoryExists = await this.categoriesRepository.findById(
@@ -20,7 +20,7 @@ class CreateCategoryUseCase{
     );
 
     if (categoryExists) {
-      throw new AppError("Categoria já existe")
+      throw new AppError("Category already exist")
     }
 
     const category = this.categoriesRepository.create(categorieName)
