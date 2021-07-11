@@ -39,7 +39,7 @@ The **Project** was developed with the following technologies:
 ```bash
 
  #Clone the repository
- $ git clone https://github.com/ItaloFL/SomosUm-Project
+ $ git clone https://github.com/ItaloFL/SomosUm-Project.git
 
  #Enter project folder
  $ cd SomosUM_api-main
