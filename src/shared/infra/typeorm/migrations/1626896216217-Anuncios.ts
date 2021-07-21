@@ -66,16 +66,9 @@ export class Anuncios1620276830651 implements MigrationInterface {
                         columnNames: ["user_id"],
                         onDelete: "SET NULL",
                         onUpdate: "SET NULL"
-                    },
-                    {
-                        name: "FKAnunciosCategorie",
-                        referencedTableName: "categories",
-                        referencedColumnNames: ["categorieID"],
-                        columnNames: ["categorieID"],
-                        onDelete: "SET NULL",
-                        onUpdate: "SET NULL" 
                     }
                 ]
+                
             })
         )
 

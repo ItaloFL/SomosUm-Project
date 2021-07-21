@@ -3,7 +3,7 @@ import { AppError } from "@shared/errors/AppError";
 import { IUserRepository } from "../../Repositories/IUserRepository";
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
-import 'dotenv/config';
+require('dotenv').config()
 import { ISessionsRepository } from "@modules/Accounts/Repositories/ISessionRepository";
 
 interface IRequestDTO {
@@ -22,7 +22,6 @@ interface IResponse {
 
 @injectable()
 class AutenticateUserUseCase {
-
   constructor(
     @inject("UsersRepository")
     private userRepository: IUserRepository,
@@ -52,10 +51,9 @@ class AutenticateUserUseCase {
       throw new AppError("User or password incorrect!")
     }
 
-
     //Gerando token apartir do id do usuário, usando a chave de encriptação, token com validade de 1 dia;
     const token = sign({ id: user.user_id }, process.env.API_SECRET, { expiresIn: '1d' })
-    await this.sessionsRepository.logout(user.user_id)
+    await this.sessionsRepository.createSession(user.user_id)
 
     /// TIPAGEM
     const tokenReturn: IResponse = {

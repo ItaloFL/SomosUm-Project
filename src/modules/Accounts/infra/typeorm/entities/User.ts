@@ -28,10 +28,10 @@ class User {
   @Column()
   genero: boolean
 
-  @Column({ nullable: true })
+  @Column()
   CPF: string
 
-  @Column({ nullable: true })
+  @Column()
   CNPJ: string
 
   @Column()

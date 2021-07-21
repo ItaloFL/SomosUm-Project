@@ -42,13 +42,14 @@ class CreateUserUseCase {
       throw new AppError("Insufficient password length!")
     }
 
-    //Verificando validade de CPF/CNPJ
+    // //Verificando validade de CPF/CNPJ
 
     if (isCNPJ) {
+      CPF = null
+
       if (!CNPJ) {
         throw new AppError("CNPJ field missing!")
       }
-      CNPJ = CNPJ.trim()
       if (!cn.isValid(CNPJ)) {
         throw new AppError("CNPJ incorret")
       }
@@ -58,11 +59,11 @@ class CreateUserUseCase {
       }
     }
     else {
+      CNPJ = null
       if (!CPF) {
         throw new AppError("CPF field missing!")
       }
 
-      CPF = CPF.trim()
       if (!cp.isValid(CPF)) {
         throw new AppError("CPF incorret")
       }

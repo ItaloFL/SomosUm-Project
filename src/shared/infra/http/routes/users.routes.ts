@@ -23,13 +23,15 @@ const autenticateUserController = new AutenticateUserController()
 const compareCodeController = new CompareCodeController()
 const listUsersController = new ListUsersController()
 
-userRoutes.get("/perfil", authMiddleware, userPerfilController.handle);// Mostrar perfil do usuario
-userRoutes.post("/UpdateUser", authMiddleware, updateUserController.handle ); //atualizar usuario
-userRoutes.get("/listUsers/:user_id", authMiddleware, listUsersController.handle);//listar usuario
-userRoutes.post("/forgotPassword", sendMailController.handle);//Verificar e enviar email
-userRoutes.put("/redefine", newPasswordMiddleware, updatePasswordUserController.handle);//definir nova senha // ANTIGO NOME DA ROTA "passWD"
 userRoutes.post("/users", createUserController.handle );//criar usúario
 userRoutes.post("/login", autenticateUserController.handle)// login do usuário
+userRoutes.get("/perfil", authMiddleware, userPerfilController.handle);// Mostrar perfil do usuario
+userRoutes.post("/UpdateUser", authMiddleware, updateUserController.handle ); //atualizar usuario
+
+userRoutes.post("/forgotPassword", sendMailController.handle);//Verificar e enviar email
+userRoutes.put("/redefine", newPasswordMiddleware, updatePasswordUserController.handle);//definir nova senha // ANTIGO NOME DA ROTA "passWD"
 userRoutes.post("/code", compareCodeController.handle);//Verificar Codigo
+
+userRoutes.get("/listUsers/", authMiddleware, listUsersController.handle);//listar usuarios
 
 export { userRoutes }

@@ -6,8 +6,7 @@ import { ListUsersUseCase } from "./ListUsersUseCase";
 class ListUsersController{
 
  async handle(request: Request, response: Response): Promise<Response>{
-
-   const { user_id } = request.params
+   const user_id = request.userId
 
    const listUserUseCase = container.resolve(ListUsersUseCase)
 

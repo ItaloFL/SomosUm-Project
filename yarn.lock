@@ -3491,7 +3491,7 @@ pg-types@^2.1.0:
 
 pg@^8.6.0:
   version "8.6.0"
-  resolved "https://registry.npmjs.org/pg/-/pg-8.6.0.tgz"
+  resolved "https://registry.yarnpkg.com/pg/-/pg-8.6.0.tgz#e222296b0b079b280cce106ea991703335487db2"
   integrity sha512-qNS9u61lqljTDFvmk/N66EeGq3n6Ujzj0FFyNMGQr6XuEv4tgNTXvJQTfJdcvGit5p5/DWPu+wj920hAJFI+QQ==
   dependencies:
     buffer-writer "2.0.0"

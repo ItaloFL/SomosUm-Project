@@ -8,11 +8,24 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=somos
       - POSTGRES_PASSWORD=777777
       - POSTGRES_DB=somosuum
     volumes:
-      - pgdata:/data/postgres
+      - pgdata:/data/postgres_somos
+
+  somosum:
+    build: .
+    container_name: somosum
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app
+    links:
+      - database_somosUm
+    depends_on:
+      - database_somosUm
 
 volumes:
   pgdata:
