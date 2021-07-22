@@ -8,7 +8,7 @@ class CreateUserController {
 
   async handle(request: Request, response: Response): Promise<Response> {
 
-    const data = request.body
+    const data: ICreateUserDTO = request.body
 
     const createUserUseCase = container.resolve(CreateUserUseCase)
 

@@ -10,8 +10,8 @@ const createCategoryController = new CreateCategoryController()
 const deleteCategoryController = new DeleteCategoryController()
 const listCategoriesController = new ListCategoriesController()
 
+CategoryRoutes.post("/categories", authMiddleware, createCategoryController.handle);//Criar categoriar
 CategoryRoutes.get("/listCategories", authMiddleware, listCategoriesController.handle);//listar categorias
-CategoryRoutes.post("/Categories", authMiddleware, createCategoryController.handle);//Criar categoriar
 CategoryRoutes.delete("/deletecatego/:categorieID", authMiddleware, deleteCategoryController.handle)//deletar categoria
 
 

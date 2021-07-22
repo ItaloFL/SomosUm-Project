@@ -11,7 +11,7 @@ class ListAdsByUserController {
 
     const adList = await listAdsByUserUseCase.execute(userID);
 
-    return response.status(200).json(adList);
+    return response.json(adList);
   } 
 }
 

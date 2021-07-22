@@ -15,8 +15,8 @@ class DeleteAdUseCase {
     if (!ad) {
       throw new AppError("Adverts does not exist", 404)
     }
-    await this.adReository.deleteAd(ad_id)
 
+    await this.adReository.deleteAd(ad_id)
   }
 }
 

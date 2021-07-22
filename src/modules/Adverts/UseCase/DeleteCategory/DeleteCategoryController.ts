@@ -12,7 +12,7 @@ class DeleteCategoryController {
 
     await deleteCategoryController.execute(categorieID);
 
-    return response.status(204);
+    return response.status(204).send();
   }
 }
 

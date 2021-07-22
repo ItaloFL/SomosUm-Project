@@ -15,6 +15,12 @@ import { ICategoriesRepository } from '@modules/Adverts/Repositories/ICategories
 import { SessionsRepository } from '@modules/Accounts/infra/typeorm/repositories/SessionsRepository'
 import { ISessionsRepository } from '@modules/Accounts/Repositories/ISessionRepository'
 
+import { IUsersTokenRepository } from '@modules/Accounts/Repositories/IUsersTokenRepository'
+import { UsersTokensRepository } from '@modules/Accounts/infra/typeorm/repositories/UsersTokenRepository'
+
+import { IDateProvider } from './providers/IDateProvider'
+import { DateProvider } from './providers/implementations/DateProvider'
+
 
 
 container.registerSingleton<IUserRepository>(
@@ -40,4 +46,14 @@ container.registerSingleton<IViewsRepository>(
 container.registerSingleton<ISessionsRepository>(
     "SessionsRepository",
     SessionsRepository
+)
+
+container.registerSingleton<IUsersTokenRepository>(
+  "UsersTokenRepository",
+  UsersTokensRepository
+)
+
+container.registerSingleton<IDateProvider>(
+  "DateProvider",
+  DateProvider
 )

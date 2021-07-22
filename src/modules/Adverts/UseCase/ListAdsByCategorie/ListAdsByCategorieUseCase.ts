@@ -15,6 +15,7 @@ class ListAdsByCategorieUseCase {
 
   async execute(categorieID: string): Promise<Anuncio[]> {
     const categoryExist = await this.categoriesRepository.findById(categorieID)
+    
     if (!categoryExist) {
       throw new AppError("Category does not exist", 404)
     }

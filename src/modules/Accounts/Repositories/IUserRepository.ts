@@ -1,4 +1,5 @@
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
+import { IUpdateUserDTO } from "../dtos/IUpdateUserDTO";
 import { User } from "../infra/typeorm/entities/User";
 
 interface IUserRepository{
@@ -8,7 +9,7 @@ interface IUserRepository{
     findbyId(user_id: string): Promise<User>
     findbyCPF(CPF: string): Promise<User>
     findbyCNPJ(CNPJ: string): Promise<User>
-    updateUser(info: ICreateUserDTO, user_id: string): Promise<User>
+    updateUser(info: IUpdateUserDTO, user_id: string): Promise<User>
     list(): Promise<User[]>
     verifyIsAdmin(user_id: string): Promise<User>
 }

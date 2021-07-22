@@ -11,11 +11,18 @@ class UpdateAdUseCase {
   ) { }
 
   async execute({
-    ad_name, price,
-    price_type, photos,
-    description, categorieID, ...data
-  }: Anuncio): Promise<Anuncio> {
+    ad_name, 
+    price,
+    price_type, 
+    photos,
+    description, 
+    categorieID, 
+    ...data
+  }
+  : Anuncio): Promise<Anuncio> {
+
     const adExist = await this.adRepository.findById(data.ad_id)
+    
     if (!adExist) {
       throw new AppError("Adverts does not exist", 404)
     }

@@ -11,7 +11,9 @@ class ShowAdUseCase {
     @inject("ViewRepository") private viewRepository: IViewsRepository) { }
 
   async execute(ad_id: string, user_id: string): Promise<IShowAdDTO> {
-    if (!ad_id) {
+    const adExist = await this.adRepository.findById(ad_id);
+
+    if (!adExist) {
       throw new AppError("Adverts does not exist", 404)
     }
 

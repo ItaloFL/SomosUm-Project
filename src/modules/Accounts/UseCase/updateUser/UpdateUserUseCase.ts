@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { AppError } from "@shared/errors/AppError";
-import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUserRepository } from "../../Repositories/IUserRepository";
+import { IUpdateUserDTO } from "@modules/Accounts/dtos/IUpdateUserDTO";
 
 
 @injectable()
@@ -12,7 +12,7 @@ class UpdateUserUseCase {
     private userRepository: IUserRepository
   ) { }
 
-  async execute(info: ICreateUserDTO, user_id: string) {
+  async execute(info: IUpdateUserDTO, user_id: string) {
 
 
     if (!info.username || !info.whatsapp || !info.church || !info.data_nascimento) {

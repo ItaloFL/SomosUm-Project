@@ -30,7 +30,7 @@ class UsersRepository implements IUserRepository {
 
   async findbyId(id: string): Promise<User>{
     const user = await this.repository.findOne(id)
-    
+
     return user;
   } 
 

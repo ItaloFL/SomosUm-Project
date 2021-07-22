@@ -9,7 +9,7 @@ class ShowAdController {
 
     const showAdUseCase = container.resolve(ShowAdUseCase);
 
-    const adInfo = await showAdUseCase.execute(user_id, ad_id);
+    const adInfo = await showAdUseCase.execute(ad_id, user_id);
 
     return response.status(200).json(adInfo);
   }

@@ -24,9 +24,14 @@ class CategoriesRepository implements ICategoriesRepository {
     await this.repository.delete(categorieID)
   }
 
-  async findById(ad_id: string): Promise<Categorie> {
+  async findById(categorieID: string): Promise<Categorie> {
   
-    return await this.repository.findOne(ad_id);
+    return await this.repository.findOne(categorieID);
+  }
+  
+  async findByName(categorieName: string): Promise<Categorie> {
+  
+    return await this.repository.findOne({categorieName});
   }
 
   async listCategories(): Promise<Categorie[]> {

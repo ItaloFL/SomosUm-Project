@@ -81,7 +81,7 @@ class AnunciosRepository implements IAnunciosRepository {
     });
 
     const userInfo = await this.userRepository.findOne(user_id)
-
+    console.log(userInfo)
     const views = await this.repository
       .createQueryBuilder("views")
       .leftJoinAndSelect("views.user", "user")
@@ -95,16 +95,20 @@ class AnunciosRepository implements IAnunciosRepository {
   }
 
   async findById(ad_id: string): Promise<Anuncio> {
-    return await this.repository.findOne(ad_id);
+    const ad = await this.repository.findOne(ad_id);
+  
+    return ad
   }
 
-  async search({ ad_name, categorieID, user_id }: ISearchParamsDTO): Promise<Anuncio[]> {
+  async search({ ad_name, criteria, flag }: ISearchParamsDTO): Promise<Anuncio[]> {
     let param: object;
-    if (categorieID) {
-      param = { categorieID: categorieID }
-    }
-    if (user_id) {
-      param = { ...param, user_id: user_id }
+
+    if (criteria) {
+
+      flag === "user" 
+      ? (param = {user_id: criteria}) 
+      : (param = {categorieID: criteria})
+      
     }
 
     var data = await this.repository.find({
@@ -120,6 +124,7 @@ class AnunciosRepository implements IAnunciosRepository {
         "price_type"
       ]
     })
+    
     return data;
   }
 }

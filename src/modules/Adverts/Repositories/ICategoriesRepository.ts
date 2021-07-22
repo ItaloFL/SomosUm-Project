@@ -4,7 +4,8 @@ import { Categorie } from "../infra/typeorm/entities/Categorie";
 interface ICategoriesRepository {
   create(categorieName: string): Promise<Categorie>
   delete(categorieID: string) : Promise<void>
-  findById(ad_id: string): Promise<Categorie>
+  findById(categorieID: string): Promise<Categorie>
+  findByName(categorieName: string): Promise<Categorie>
   listCategories(): Promise<Categorie[]>
 }
 

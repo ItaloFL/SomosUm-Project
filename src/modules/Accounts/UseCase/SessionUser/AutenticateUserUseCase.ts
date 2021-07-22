@@ -5,6 +5,9 @@ import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 require('dotenv').config()
 import { ISessionsRepository } from "@modules/Accounts/Repositories/ISessionRepository";
+import auth from "config/auth";
+import { IUsersTokenRepository } from "@modules/Accounts/Repositories/IUsersTokenRepository";
+import { IDateProvider } from "@shared/container/providers/IDateProvider";
 
 interface IRequestDTO {
   email: string,
@@ -17,6 +20,7 @@ interface IResponse {
     email: string;
   };
   token: string
+  refresh_token: string
 }
 
 
@@ -26,7 +30,11 @@ class AutenticateUserUseCase {
     @inject("UsersRepository")
     private userRepository: IUserRepository,
     @inject("SessionsRepository")
-    private sessionsRepository: ISessionsRepository
+    private sessionsRepository: ISessionsRepository,
+    @inject("UsersTokenRepository")
+    private usersTokensRepository: IUsersTokenRepository,
+    @inject("DateProvider")
+    private dateProvider: IDateProvider,
   ) { }
 
 
@@ -52,8 +60,22 @@ class AutenticateUserUseCase {
     }
 
     //Gerando token apartir do id do usuário, usando a chave de encriptação, token com validade de 1 dia;
-    const token = sign({ id: user.user_id }, process.env.API_SECRET, { expiresIn: '1d' })
+    const token = sign({ id: user.user_id }, process.env.API_SECRET, { expiresIn: auth.expires_in_token })
+
     await this.sessionsRepository.createSession(user.user_id)
+
+    const refresh_token = sign({ email }, process.env.API_SECRET_REFRESH_TOKEN, {
+      subject: user.user_id,
+      expiresIn: auth.expires_in_refresh_token
+    })
+
+    const refresh_token_expires_date = this.dateProvider.addDays(auth.expires_refresh_token_days)
+
+    await this.usersTokensRepository.create({
+      user_id: user.user_id,
+      refresh_token,
+      expires_date: refresh_token_expires_date
+    })
 
     /// TIPAGEM
     const tokenReturn: IResponse = {
@@ -61,7 +83,8 @@ class AutenticateUserUseCase {
       user: {
         name: user.username,
         email: user.email
-      }
+      },
+      refresh_token
     }
 
     return tokenReturn

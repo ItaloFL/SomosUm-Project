@@ -12,7 +12,7 @@ class SearchUseCase{
     private adRepository: IAnunciosRepository) {}
 
   async execute(data : ISearchParamsDTO): Promise<Anuncio[]> {
-    const category = this.adRepository.search(data)
+    const category = await this.adRepository.search(data)
 
     return category;
   }

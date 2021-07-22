@@ -12,15 +12,15 @@ class CreateCategoryUseCase {
 
   async execute(categorieName: string): Promise<Categorie> {
     if (!categorieName) {
-      throw new AppError("Category does not exist", 404)
+      throw new AppError("Missing category name fild");
     }
 
-    const categoryExists = await this.categoriesRepository.findById(
+    const categoryExists = await this.categoriesRepository.findByName(
       categorieName
     );
 
     if (categoryExists) {
-      throw new AppError("Category already exist")
+      throw new AppError("Category already exist");
     }
 
     const category = this.categoriesRepository.create(categorieName)

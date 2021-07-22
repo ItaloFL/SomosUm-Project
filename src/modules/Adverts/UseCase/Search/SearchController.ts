@@ -5,11 +5,11 @@ import { SearchUseCase } from "./SearchUseCase";
 
 class SearchController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { ad_name, categorieID, user_id} = request.params
+    const { ad_name, criteria, flag} = request.params
     
     const searchUseCase = container.resolve(SearchUseCase)
 
-    const results = await searchUseCase.execute({ad_name, categorieID, user_id})
+    const results = await searchUseCase.execute({ad_name, criteria, flag})
 
     return response.status(200).json(results)
   }

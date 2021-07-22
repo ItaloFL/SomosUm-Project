@@ -12,13 +12,9 @@ class SendMailController {
 
         const sendMailUseCase = container.resolve(SendMailUseCase)
 
-        const mailsend = await sendMailUseCase.execute(email)
+        const token = await sendMailUseCase.execute(email)
 
-        if (!mailsend) {
-            throw new AppError("Email not sent")
-        }
-
-        return response.status(201).send()
+        return response.status(201).json(token)
     }
 
 

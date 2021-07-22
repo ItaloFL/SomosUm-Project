@@ -4,7 +4,6 @@ import { AppError } from "@shared/errors/AppError"
 import { Anuncio } from "../../infra/typeorm/entities/Anuncio";
 import { ICreateAdDTO } from "../../dtos/ICreateAdDTO";
 
-
 @injectable()
 class CreateAdUseCase {
   constructor(@inject("AnunciosRepository") private adRepository: IAnunciosRepository) { }
@@ -14,7 +13,7 @@ class CreateAdUseCase {
     price_type, photos,
     description, categorieID
   }: ICreateAdDTO, user_id: string): Promise<Anuncio> {
-    if (!ad_name || !description) {
+    if (!ad_name || !description || !price || !price_type || !categorieID ) {
       throw new AppError("Missing field!")
     }
 
