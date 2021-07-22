@@ -10,7 +10,7 @@ services:
     environment:
       - POSTGRES_USER=somos
       - POSTGRES_PASSWORD=777777
-      - POSTGRES_DB=somosuum
+      - POSTGRES_DB=somosum
     volumes:
       - pgdata:/data/postgres_somos
 

@@ -21,6 +21,10 @@ export class CreateSignature1626886101369 implements MigrationInterface {
                     type: "boolean"
                 },
                 {
+                    name: "expire_date",
+                    type: "timestamp"
+                },
+                {
                     name: "created_at",
                     type: "timestamp",
                     default: "now()"

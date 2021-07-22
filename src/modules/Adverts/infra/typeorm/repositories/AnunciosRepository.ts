@@ -7,14 +7,17 @@ import { IAnunciosRepository } from "@modules/Adverts/Repositories/IAnunciosRepo
 import { IShowAdDTO } from "@modules/Adverts/dtos/IShowAdDTO"
 import { ICreateAdDTO } from "@modules/Adverts/dtos/ICreateAdDTO"
 import { ISearchParamsDTO } from "@modules/Adverts/dtos/ISearchParamsDTO"
+import { View } from "../entities/Views"
 
 class AnunciosRepository implements IAnunciosRepository {
   private repository: Repository<Anuncio>
   private userRepository: Repository<User>
+  private viewRepository: Repository<View>
 
   constructor() {
     this.repository = getRepository(Anuncio);
     this.userRepository = getRepository(User);
+    this.viewRepository = getRepository(View);
   }
 
   async create({
@@ -81,14 +84,16 @@ class AnunciosRepository implements IAnunciosRepository {
     });
 
     const userInfo = await this.userRepository.findOne(user_id)
-    console.log(userInfo)
-    const views = await this.repository
+
+    const views = await this.viewRepository
       .createQueryBuilder("views")
       .leftJoinAndSelect("views.user", "user")
-      .where("user.church = :igreja", { igreja: userInfo.church })
-      .andWhere("views.ad_id = :ad_id", { ad_id })
-      .andWhere("views.user_id != :user_id", { user_id })
+      .where("user.church = :igreja")
+      .andWhere("views.ad_id = :ad_id")
+      .andWhere("views.user_id != :user_id")
+      .setParameters({igreja: userInfo.church, ad_id, user_id})
       .getCount();
+    
     const data = { adInfo, views }
 
     return data

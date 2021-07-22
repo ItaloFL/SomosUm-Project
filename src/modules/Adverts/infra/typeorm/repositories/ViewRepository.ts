@@ -13,7 +13,6 @@ class ViewsRepository implements IViewsRepository {
       ad_id,
       user_id
     })
-  
     await this.repository.save(view);
 
     return;

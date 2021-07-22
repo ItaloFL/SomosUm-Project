@@ -19,7 +19,7 @@ class ShowAdUseCase {
 
     const adInfo = await this.adRepository.showAd(ad_id, user_id)
 
-    this.viewRepository.countView(ad_id, user_id)
+    await this.viewRepository.countView(ad_id, user_id)
 
     return adInfo
   }
