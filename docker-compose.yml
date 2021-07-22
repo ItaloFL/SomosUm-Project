@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  database_somosUm:
+    image: postgres
+    container_name: database_somosUm
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=somos
+      - POSTGRES_PASSWORD=777777
+      - POSTGRES_DB=somosum
+    volumes:
+      - pgdata:/data/postgres_somos
+
+  somosum:
+    build: .
+    container_name: somosum
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app
+    links:
+      - database_somosUm
+    depends_on:
+      - database_somosUm
+
+volumes:
+  pgdata:
