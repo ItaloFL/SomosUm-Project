@@ -6,7 +6,7 @@ import 'dotenv/config';
 import { AppError } from '@shared/errors/AppError';
 
 interface TokenPayLoad {
-  id: string
+  sub: string
 }
 
 async function authMiddleware(request: Request, response: Response, next: NextFunction){
@@ -21,7 +21,9 @@ async function authMiddleware(request: Request, response: Response, next: NextFu
   try {
     const data = verify(token, process.env.API_SECRET);
 
-    const { id } = data as TokenPayLoad;
+    const { sub } = data as TokenPayLoad;
+
+    const id = sub
 
     request.userId = id
 

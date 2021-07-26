@@ -60,11 +60,14 @@ class AutenticateUserUseCase {
     }
 
     //Gerando token apartir do id do usuário, usando a chave de encriptação, token com validade de 1 dia;
-    const token = sign({ id: user.user_id }, process.env.API_SECRET, { expiresIn: auth.expires_in_token })
+    const token = sign({}, process.env.API_SECRET,{ 
+      subject: user.user_id,
+      expiresIn: auth.expires_in_token
+    })
 
     await this.sessionsRepository.createSession(user.user_id)
 
-    const refresh_token = sign({ email }, process.env.API_SECRET_REFRESH_TOKEN, {
+    const refresh_token = sign({}, process.env.API_SECRET_REFRESH_TOKEN, {
       subject: user.user_id,
       expiresIn: auth.expires_in_refresh_token
     })

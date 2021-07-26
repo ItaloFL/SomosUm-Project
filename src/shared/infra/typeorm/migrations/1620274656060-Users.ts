@@ -74,7 +74,7 @@ export class Users1620274656060 implements MigrationInterface {
                     type: "varchar",
                     isNullable: true,
                 }
-                ]
+              ]
             })
         )
     }

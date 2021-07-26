@@ -1,5 +1,5 @@
 import { IUsersTokenRepository } from "@modules/Accounts/Repositories/IUsersTokenRepository"
-import { DateProvider } from "@shared/container/providers/implementations/DateProvider"
+import { IDateProvider } from "@shared/container/providers/IDateProvider"
 import { AppError } from "@shared/errors/AppError"
 import auth from "config/auth"
 require('dotenv').config()
@@ -7,8 +7,7 @@ require('dotenv').config()
 import { sign, verify } from "jsonwebtoken"
 import { inject, injectable } from "tsyringe"
 
-interface IPayLoad{
-  email: string
+interface IPayLoad{ 
   sub: string
 }
 
@@ -19,12 +18,12 @@ class RefreshTokenUseCase{
     @inject("UsersTokenRepository")
     private usersTokenRepository: IUsersTokenRepository,
     @inject("DateProvider")
-    private dateProvider: DateProvider
+    private dateProvider: IDateProvider
   ){}
 
   async execute(token: string){
 
-    const { email, sub } = verify(token, process.env.API_SECRET_REFRESH_TOKEN) as IPayLoad
+    const { sub } = verify(token, process.env.API_SECRET_REFRESH_TOKEN) as IPayLoad
 
     const user_id = sub
 
@@ -39,12 +38,12 @@ class RefreshTokenUseCase{
 
     await this.usersTokenRepository.deleteById(userToken.id)
 
-    const refresh_token = sign({ email }, process.env.API_SECRET_REFRESH_TOKEN,{
+    const refresh_token = sign({}, process.env.API_SECRET_REFRESH_TOKEN,{
       subject: sub,
       expiresIn: auth.expires_in_refresh_token
     })
 
-    const expires_date = await this.dateProvider.addDays(auth.expires_refresh_token_days)
+    const expires_date = this.dateProvider.addDays(auth.expires_refresh_token_days)
 
     await this.usersTokenRepository.create({
       expires_date,

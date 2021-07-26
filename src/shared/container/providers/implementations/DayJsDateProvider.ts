@@ -5,7 +5,7 @@ import { IDateProvider } from "../IDateProvider";
 
 dayjs.extend(utc);
 
-export class DateProvider implements IDateProvider{
+export class DayJsDateProvider implements IDateProvider{
   
   convertToUTC(date: Date): string {
     return dayjs(date).utc().local().format();
@@ -18,6 +18,11 @@ export class DateProvider implements IDateProvider{
     const start_date_utc = this.convertToUTC(start_date);
     
     return dayjs(end_date_utc).diff(start_date_utc, "days");
+  }
+  sumSubscriptionDays(date: Date): Date {
+    const days = dayjs(date).add(30, "days").toDate()
+    
+    return days;
   }
   addDays(days: number) {
     return dayjs().add(days, "days").toDate()

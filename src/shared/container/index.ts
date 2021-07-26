@@ -19,7 +19,9 @@ import { IUsersTokenRepository } from '@modules/Accounts/Repositories/IUsersToke
 import { UsersTokensRepository } from '@modules/Accounts/infra/typeorm/repositories/UsersTokenRepository'
 
 import { IDateProvider } from './providers/IDateProvider'
-import { DateProvider } from './providers/implementations/DateProvider'
+import { DayJsDateProvider } from './providers/implementations/DayJsDateProvider'
+import { SubscriptionsRepository } from '@modules/Accounts/infra/typeorm/repositories/SubscriptionsRepository'
+import { ISubscriptionsRepository } from '@modules/Accounts/Repositories/ISubscriptionsRepository'
 
 
 
@@ -48,6 +50,11 @@ container.registerSingleton<ISessionsRepository>(
     SessionsRepository
 )
 
+container.registerSingleton<ISubscriptionsRepository>(
+  "SubscriptionsRepository",
+  SubscriptionsRepository
+)
+
 container.registerSingleton<IUsersTokenRepository>(
   "UsersTokenRepository",
   UsersTokensRepository
@@ -55,5 +62,5 @@ container.registerSingleton<IUsersTokenRepository>(
 
 container.registerSingleton<IDateProvider>(
   "DateProvider",
-  DateProvider
+  DayJsDateProvider
 )

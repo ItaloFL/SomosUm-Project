@@ -69,9 +69,8 @@ export class Anuncios1620276830651 implements MigrationInterface {
                     }
                 ]
                 
-            })
+            }),
         )
-
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

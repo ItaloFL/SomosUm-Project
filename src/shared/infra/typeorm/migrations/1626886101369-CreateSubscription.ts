@@ -1,14 +1,14 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateSignature1626886101369 implements MigrationInterface {
+export class CreateSubscription1626886101369 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
         new Table({
-            name: "signature",
+            name: "subscription",
             columns:[
                 {
-                    name: "ad_id",
+                    name: "id",
                     type: "uuid",
                     isPrimary: true,
                 },
@@ -18,11 +18,12 @@ export class CreateSignature1626886101369 implements MigrationInterface {
                 },
                 {
                     name: "paid",
-                    type: "boolean"
+                    type: "boolean",
+                    default: true
                 },
                 {
                     name: "expire_date",
-                    type: "timestamp"
+                    type: "timestamp",
                 },
                 {
                     name: "created_at",
@@ -37,7 +38,7 @@ export class CreateSignature1626886101369 implements MigrationInterface {
             ],
             foreignKeys : [
                 {
-                    name: "FKSignatureUser",
+                    name: "FKSubscriptionUser",
                     referencedTableName: "users",
                     referencedColumnNames: ["user_id"],
                     columnNames: ["user_id"],
@@ -51,7 +52,7 @@ export class CreateSignature1626886101369 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable("signature");
+      await queryRunner.dropTable("subscription");
     }
 
 }
