@@ -31,6 +31,8 @@ The **Project** was developed with the following technologies:
 - [Express](https://expressjs.com/)
 - [JWT-token](https://jwt.io/)
 - [Docker](https://www.docker.com/)
+- [Handlebars](https://handlebarsjs.com/)
+- [Jest](https://jestjs.io/pt-BR/)
 
 ---
 
@@ -42,7 +44,7 @@ The **Project** was developed with the following technologies:
  $ git clone https://github.com/ItaloFL/SomosUm-Project.git
 
  #Enter project folder
- $ cd SomosUM_api-main
+ $ cd SomosUm-Project
 
  #Install dependencies
  $ yarn install
