@@ -18,10 +18,11 @@ import { ISessionsRepository } from '@modules/Accounts/Repositories/ISessionRepo
 import { IUsersTokenRepository } from '@modules/Accounts/Repositories/IUsersTokenRepository'
 import { UsersTokensRepository } from '@modules/Accounts/infra/typeorm/repositories/UsersTokenRepository'
 
-import { IDateProvider } from './providers/IDateProvider'
-import { DayJsDateProvider } from './providers/implementations/DayJsDateProvider'
 import { SubscriptionsRepository } from '@modules/Accounts/infra/typeorm/repositories/SubscriptionsRepository'
 import { ISubscriptionsRepository } from '@modules/Accounts/Repositories/ISubscriptionsRepository'
+
+import './providers/DateProvider'
+import './providers/MailProvider'
 
 
 
@@ -60,7 +61,3 @@ container.registerSingleton<IUsersTokenRepository>(
   UsersTokensRepository
 )
 
-container.registerSingleton<IDateProvider>(
-  "DateProvider",
-  DayJsDateProvider
-)

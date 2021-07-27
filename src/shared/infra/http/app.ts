@@ -3,6 +3,7 @@ import express from "express";
 import cors from 'cors';
 import { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
+import 'dotenv/config'
 
 import '../../container'
 

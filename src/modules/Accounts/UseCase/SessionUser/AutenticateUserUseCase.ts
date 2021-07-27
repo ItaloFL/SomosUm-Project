@@ -7,7 +7,8 @@ require('dotenv').config()
 import { ISessionsRepository } from "@modules/Accounts/Repositories/ISessionRepository";
 import auth from "config/auth";
 import { IUsersTokenRepository } from "@modules/Accounts/Repositories/IUsersTokenRepository";
-import { IDateProvider } from "@shared/container/providers/IDateProvider";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
+
 
 interface IRequestDTO {
   email: string,

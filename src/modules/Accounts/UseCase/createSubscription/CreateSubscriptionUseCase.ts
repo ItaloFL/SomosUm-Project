@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
 import { ISubscriptionsRepository } from "@modules/Accounts/Repositories/ISubscriptionsRepository";
-import { IDateProvider } from "@shared/container/providers/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 
 @injectable()
 class CreateSubscriptionUseCase {

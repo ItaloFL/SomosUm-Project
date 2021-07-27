@@ -7,7 +7,6 @@ import { UpdateUserController } from '@modules/Accounts/UseCase/updateUser/Updat
 import { SendMailController } from '@modules/Accounts/UseCase/sendMail/SendMailController'
 import { UpdatePasswordController } from '@modules/Accounts/UseCase/updatePassword/UpdatePasswordController'
 import { CreateUserController } from '@modules/Accounts/UseCase/createUser/CreateUserController'
-import { AutenticateUserController } from '@modules/Accounts/UseCase/SessionUser/AutenticateUserController'
 import { CompareCodeController } from '@modules/Accounts/UseCase/CompareCode/CompareCodeController'
 import { newPasswordMiddleware } from '../middlewares/newPasswordMidddleware';
 import { ListUsersController } from '@modules/Accounts/UseCase/ListUsers/ListUserController'

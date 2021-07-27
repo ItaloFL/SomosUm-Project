@@ -1,60 +1,59 @@
 import { inject, injectable } from "tsyringe";
-import nodemailer from 'nodemailer'
 import 'dotenv'
 import { AppError } from "@shared/errors/AppError";
 import { IUserRepository } from "../../Repositories/IUserRepository";
 import { createEncryptedCode } from "@utils/createEncryptedCode";
-import smtpTransport from 'nodemailer-smtp-transport';
 import { sign } from 'jsonwebtoken';
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
+import { resolve } from "path";
 
 
 @injectable()
 class SendMailUseCase {
   constructor(
     @inject("UsersRepository")
-    private userRepository: IUserRepository
-  ) { }
+    private userRepository: IUserRepository,
+    @inject("MailProvider")
+    private mailProvider: IMailProvider
+  ){}
 
   async execute(email: string) {
 
-    email = email.trim()
     const emailExists = await this.userRepository.findbyEmail(
       email
     )
+    
+    const templatePath = resolve(__dirname, "..", "..", "views", "emails", "ForgotPassword.hbs")
+    
     if (!emailExists) {
-      throw new AppError("Email does not exist!", 404)
+      throw new AppError("Email does not exist!")
     }
 
     const { user_id } = emailExists
 
-    const user: string = process.env.API_VALIDATION_EMAIL
-    const pass: string = process.env.API_VALIDATION_PASSWD
-
-    const transporter = nodemailer.createTransport(smtpTransport({
-      service: 'gmail',
-      port: 465,
-      host: 'smtp.gmail.com',
-      secure: true,
-      auth: {
-        user, pass
-      }
-    }));
-
     const { code, encryptedCode } = createEncryptedCode()
     const Token = sign({ id: encryptedCode, uid: user_id }, process.env.API_NEW_PASSWD, { expiresIn: '15m' })
 
-    try {
-      await transporter.sendMail({
-        from: 'cod.somosum@gmail.com',
-        to: `${email}`,
-        subject: 'Codigo para a recuperação da sua senha',
-        text: `Ola querido cliente, com seu pedido de troca de senha, estamos 
-          enviando um código, por favor, o coloque no campo descrito no aplicativo ${code}!`
-      })
-      const auth = { token: Token }
-      return auth
+    const variables = {
+      name: emailExists.username,
+      code
+    }
 
+    try {
+      const user =  await this.mailProvider.sendMail(
+        email,
+        "Recuperação de senha",
+        variables,
+        templatePath
+      )
+
+      // const auth = { token: Token }
+      // return auth
+      
     } catch {
+      console.log(email)
+      console.log(variables)
+      console.log(templatePath)
       throw new AppError("Unable to send email, please try again!");
     }
   }

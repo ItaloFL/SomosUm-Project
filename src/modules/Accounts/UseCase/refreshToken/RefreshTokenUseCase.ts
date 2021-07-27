@@ -1,5 +1,5 @@
 import { IUsersTokenRepository } from "@modules/Accounts/Repositories/IUsersTokenRepository"
-import { IDateProvider } from "@shared/container/providers/IDateProvider"
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider"
 import { AppError } from "@shared/errors/AppError"
 import auth from "config/auth"
 require('dotenv').config()
