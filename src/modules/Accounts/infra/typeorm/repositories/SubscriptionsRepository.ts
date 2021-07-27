@@ -6,6 +6,7 @@ import { Subscription } from "../entities/Subscription";
 
 class SubscriptionsRepository implements ISubscriptionsRepository {
   private repository: Repository<Subscription>
+  
   constructor() {
     this.repository = getRepository(Subscription);
   }
@@ -14,12 +15,14 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     const subscription = this.repository.create({user_id, expire_date, id: subscription_id});
 
     await this.repository.save(subscription);
-z
+
     return subscription;
   }
 
   async findById(user_id: string): Promise<Subscription> {
-    const subscription = await this.repository.findOne({ user_id });
+    const subscription = await this.repository.findOne({
+      user_id
+    });
 
     return subscription;
   }

@@ -66,6 +66,3 @@ Joey Felipe Albuquerque
 
 - 🎫 [GitHub](https://github.com/J031F)
 
-Ismael Alves Bandeira Filho
-
-- 🎫 [GitHub](https://github.com/Isalvs)

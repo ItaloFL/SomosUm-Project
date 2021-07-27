@@ -15,6 +15,8 @@ async function newPasswordMiddleware(request: Request, response: Response, next:
     throw new AppError("Token missing!", 401)
   }
 
+
+
   const [, token] = auth.split(" ");
   
   try {

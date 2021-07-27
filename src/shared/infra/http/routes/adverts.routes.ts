@@ -9,6 +9,7 @@ import { ListAdsByCategorieController } from '@modules/Adverts/UseCase/ListAdsBy
 import { ListAdsByUserController } from '@modules/Adverts/UseCase/ListAdsByUser/ListAdsByUserController'
 import { ShowAdController } from '@modules/Adverts/UseCase/ShowAd/ShowAdController' 
 import { UpdateAdController } from '@modules/Adverts/UseCase/UpdateAd/UpdateAdController'
+import { verifySubscriptionMiddleware } from '../middlewares/verifySubscriptionMiddleware';
 
 const AdvertsRoutes = Router()
 
@@ -21,7 +22,7 @@ const deleteAdController = new DeleteAdController()
 const searchController = new SearchController()
 
 
-AdvertsRoutes.post("/ad", authMiddleware, createAdController.handle);//criar anuncio
+AdvertsRoutes.post("/ad", verifySubscriptionMiddleware ,authMiddleware, createAdController.handle);//criar anuncio
 AdvertsRoutes.get("/showAd/:ad_id", authMiddleware, showAdController.handle);//Mostrar anuncio
 AdvertsRoutes.get("/listAdsByCategorie/:categorieID", authMiddleware, listAdsByCategoriesController.handle);//listar ad by categoria
 AdvertsRoutes.get("/listAdsByUser", authMiddleware, listAdsByUserController.handle);//listar anuncios por usuario

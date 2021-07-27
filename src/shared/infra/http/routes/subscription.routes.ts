@@ -9,6 +9,6 @@ const subscriptionsRoutes = Router()
 const createSubscriptionController = new CreateSubscriptionController()
 
 
-subscriptionsRoutes.post("/", authMiddleware, createSubscriptionController.handle);//criar anuncio
+subscriptionsRoutes.post("/", authMiddleware, createSubscriptionController.handle);//Criar assinatura
 
 export { subscriptionsRoutes }
